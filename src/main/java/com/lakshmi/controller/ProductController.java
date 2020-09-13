@@ -2,34 +2,49 @@ package com.lakshmi.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lakshmi.request.Product;
+import com.lakshmi.request.AddProductDetailsRequest;
+import com.lakshmi.response.AddProductDetailsResponse;
 
-@RequestMapping("/product")
 @RestController
+@SpringBootApplication
+@RequestMapping("/product")
 public class ProductController {
-	List<Product> productList = new ArrayList<Product>();
+	List<AddProductDetailsRequest> productList = new ArrayList<AddProductDetailsRequest>();
 
 	@PostMapping("/addProductDetails")
-	public String newProduct(@RequestBody Product newProduct) {
-		productList.add(newProduct);
-		return "Status sucess and status code is 200";
+	public AddProductDetailsResponse addProductDetails(@RequestBody AddProductDetailsRequest request) {
+		// Response class with object to callinpostmanresponsebody
+		AddProductDetailsResponse response = new AddProductDetailsResponse();
+		// productList.add(request);
+		// return "Product added";
+
+		try {
+
+			// created object addrsp of AddProductResponseclass productList.add(request);
+			System.out.println(response.toString());
+			//request.
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return response;
+
 	}
 
-	@GetMapping("/addProductDetailsbyId")
-	public String getProductDetails(@RequestParam Integer prodid) {
-		System.out.println("productList" + productList.toString());
-		for (Product prod : productList) {
-			if (prod.getId() != prodid) {
-				return "Status fail and status code is 400";
-			}
-		}
-		return null;
-	}
+	/*
+	 * @GetMapping("/addProductDetailsbyId") public String
+	 * getProductDetails(@RequestParam Integer prodid) {
+	 * System.out.println("productList" + productList.toString()); for
+	 * (AddProductDetailsRequest prod : productList) { if (prod.getId() == prodid) {
+	 * return "Product added and Status sucess ";
+	 * 
+	 * } } return null; }
+	 */
 }
